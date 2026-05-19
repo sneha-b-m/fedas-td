@@ -97,8 +97,17 @@ fedas-td/
 
 
 ## Run on Google Colab
+### Step 1: If GPU is available in Colab
 
-### Step 1: Upload or clone the repository
+Go to:
+
+- `Runtime`
+- `Change runtime type`
+- select `GPU`
+
+
+
+### Step 2: Upload or clone the repository
 
 If the repository is on GitHub:
 
@@ -109,35 +118,27 @@ If the repository is on GitHub:
 
 If you are using a zip file, upload and extract it in Colab.
 
-### Step 2: Install dependencies
+### Step 3: Install dependencies
 
 ```bash
 !pip install torch torchvision numpy ujson opacus torchviz calmsize
 ```
 
-### Step 3: Generate the dataset
+### Step 4: Generate the dataset
 
 ```bash
 %cd /content/fedas-td/dataset
 !python generate_cifar10.py noniid - dir
 ```
 
-### Step 4: Run the modified code
+### Step 5: Run the code
 
 ```bash
 %cd /content/fedas-td/system
 !python main.py -did 0 -data Cifar10 -nb 10 -m cnn -lbs 16 -gr 40 -ls 5 -algo FedAS -jr 0.4 -nc 20 --temporal_drift --drift_interval 5 --drift_labels_per_phase 2 --drift_aware
 ```
 
-### Step 5: If GPU is available in Colab
 
-Go to:
-
-- `Runtime`
-- `Change runtime type`
-- select `GPU`
-
-Then run the same command again.
 
 
 ###  Meaning of the main arguments
