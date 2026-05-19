@@ -157,47 +157,7 @@ Then run the same command again.
 - `--drift_labels_per_phase 2` : classes visible in one drift phase
 - `--drift_aware` : enable the modified FedAS-TD method
 
-## Additional Run Examples
 
-Join ratio 0.2:
-
-```bash
-python main.py -did 0 -data Cifar10 -nb 10 -m cnn -lbs 16 -gr 40 -ls 5 -algo FedAS -jr 0.2 -nc 20 --temporal_drift --drift_interval 5 --drift_labels_per_phase 2 --drift_aware
-```
-
-Join ratio 0.6:
-
-```bash
-python main.py -did 0 -data Cifar10 -nb 10 -m cnn -lbs 16 -gr 40 -ls 5 -algo FedAS -jr 0.6 -nc 20 --temporal_drift --drift_interval 5 --drift_labels_per_phase 2 --drift_aware
-```
-
-Join ratio 1.0:
-
-```bash
-python main.py -did 0 -data Cifar10 -nb 10 -m cnn -lbs 16 -gr 40 -ls 5 -algo FedAS -jr 1.0 -nc 20 --temporal_drift --drift_interval 5 --drift_labels_per_phase 2 --drift_aware
-```
-
-
-## Modified Drift-Aware Flags
-
-These flags were added for the modified version:
-
-```text
---drift_aware
---drift_fim_weight
---drift_proto_weight
---drift_loss_weight
---drift_clip
---drift_norm_eps
---drift_beta
---personalization_min
---personalization_max
---prototype_batch_size
---temporal_drift
---drift_interval
---drift_labels_per_phase
---drift_min_samples
-```
 
 Default values:
 
