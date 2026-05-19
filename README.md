@@ -48,17 +48,13 @@ For each client, I compute a drift score using three signals:
 
 The combined drift score is:
 
-\[
-D_k^{(t)}=\mathrm{clip}\left(\lambda_F \Delta F_k^{(t)}+\lambda_P P_k^{(t)}+\lambda_L S_k^{(t)},0,D_{\max}\right)
-\]
+`D_k^(t) = clip(lambda_F * DeltaF_k^(t) + lambda_P * P_k^(t) + lambda_L * S_k^(t), 0, D_max)`
 
 ### 3. Adaptive Personalization
 
 Instead of always fully replacing the local base model with the aligned global base, the modified version blends them:
 
-\[
-\theta_{k,\text{base}} \leftarrow (1-\alpha_k^{(t)})\theta_{g,\text{aligned}}+\alpha_k^{(t)}\theta_{k,\text{old}}
-\]
+`theta_k,base <- (1 - alpha_k^(t)) * theta_g,aligned + alpha_k^(t) * theta_k,old`
 
 - low drift: accept more global knowledge
 - high drift: retain more local knowledge
@@ -67,17 +63,13 @@ Instead of always fully replacing the local base model with the aligned global b
 
 Original FedAS trusts only Fisher magnitude:
 
-\[
-w_k=\frac{F_k}{\sum_j F_j}
-\]
+`w_k = F_k / sum_j F_j`
 
 Modified FedAS-TD discounts unstable clients:
 
-\[
-\tilde{w}_k=\frac{F_k}{1+\beta D_k},
-\qquad
-w_k=\frac{\tilde{w}_k}{\sum_j \tilde{w}_j}
-\]
+`w_tilde_k = F_k / (1 + beta * D_k)`
+
+`w_k = w_tilde_k / sum_j w_tilde_j`
 
 This means a client must be both:
 
