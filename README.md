@@ -195,6 +195,48 @@ Join ratio 1.0:
 ```bash
 python main.py -did 0 -data Cifar10 -nb 10 -m cnn -lbs 16 -gr 40 -ls 5 -algo FedAS -jr 1.0 -nc 20 --temporal_drift --drift_interval 5 --drift_labels_per_phase 2 --drift_aware
 ```
+## Run on Google Colab
+
+### Step 1: Upload or clone the repository
+
+If the repository is on GitHub:
+
+```bash
+!git clone https://github.com/sneha-b-m/fedas-td.git
+%cd fedas-td
+```
+
+If you are using a zip file, upload and extract it in Colab.
+
+### Step 2: Install dependencies
+
+```bash
+!pip install torch torchvision numpy
+```
+
+### Step 3: Generate the dataset
+
+```bash
+%cd dataset
+!python generate_cifar10.py noniid - dir
+%cd ../system
+```
+
+### Step 4: Run the modified code
+
+```bash
+!python main.py -did 0 -data Cifar10 -nb 10 -m cnn -lbs 16 -gr 40 -ls 5 -algo FedAS -jr 0.4 -nc 20 --temporal_drift --drift_interval 5 --drift_labels_per_phase 2 --drift_aware
+```
+
+### Step 5: If GPU is available in Colab
+
+Go to:
+
+- `Runtime`
+- `Change runtime type`
+- select `GPU`
+
+Then run the same command again.
 
 ## Modified Drift-Aware Flags
 
