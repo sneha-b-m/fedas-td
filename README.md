@@ -211,20 +211,20 @@ If you are using a zip file, upload and extract it in Colab.
 ### Step 2: Install dependencies
 
 ```bash
-!pip install torch torchvision numpy
+!pip install torch torchvision numpy ujson
 ```
 
 ### Step 3: Generate the dataset
 
 ```bash
-%cd dataset
+%cd /content/fedas-td/dataset
 !python generate_cifar10.py noniid - dir
-%cd ../system
 ```
 
 ### Step 4: Run the modified code
 
 ```bash
+%cd /content/fedas-td/system
 !python main.py -did 0 -data Cifar10 -nb 10 -m cnn -lbs 16 -gr 40 -ls 5 -algo FedAS -jr 0.4 -nc 20 --temporal_drift --drift_interval 5 --drift_labels_per_phase 2 --drift_aware
 ```
 
