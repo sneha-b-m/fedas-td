@@ -1,0 +1,49 @@
+This project is an Online Election Portal built using Flask. It is used for conducting elections online. The system supports two roles: admin and user or voter. The admin prepares the election and manages the candidates. The voter can log in and vote only during the active election period. After the election ends, the results are displayed.
+
+This slide shows the functional requirements of the system. A user must be able to log in using email and password. After login, the system identifies whether the user is an admin or a voter. The admin can create and modify elections, and also add or delete candidates. The voter can vote only during the active election period. The system stores the votes and displays the results after the election ends.
+
+This slide shows the non-functional requirements of the portal. These describe the quality of the system. Security is important, so passwords must be hashed and protected. Integrity is also important because duplicate voting must be prevented. The system should be reliable and work correctly in all major functions. It should also have acceptable performance when handling user load. Finally, the project should be maintainable so future updates can be made easily.
+
+This slide shows the software architecture of the Election Portal. The user or admin interacts with the web interface, which is the presentation layer. The request is then handled by the Flask backend, which is the application layer. Flask processes the logic and communicates with the database layer, where user, election, candidate, and voting data are stored. So the basic flow is web interface to Flask backend to database.
+
+This slide shows the ER diagram of the Election Portal. The main entities are User, Election, Candidate, and Vote. The User votes, and that vote is stored in the Vote table. The Election has Candidates, and each Candidate can receive votes. The Vote table connects the user, candidate, and election using foreign keys like UserID, CandidateID, and ElectionID.
+
+This slide shows the use case diagram of the Election Portal. It represents the interaction between the actors and the system. There are two actors: User and Admin. The User can log in, log out, vote, and view results. The Admin can log in, log out, create an election, add candidates, and view results. So this diagram helps us understand the main functions available for each role.
+
+This slide shows the class diagram of the Election Portal. The main classes are User, Election, Candidate, and Vote. The User class contains details like userId, username, and password, and functions like register, login, and logout. The Election class contains electionId and name, with functions to create election and get results. The Candidate class stores candidate details and is linked to an election. The Vote class stores voteId, userId, candidateId, and electionId, and has the castVote function. This diagram shows how the main parts of the system are structured and connected.
+
+This slide shows the sequence diagram of the Election Portal. It explains how the user, web interface, server, and database interact step by step. During login, the user enters credentials, the request goes to the server, and the server validates the user through the database. During voting, the ballot is loaded from the database, and when the user submits the vote, it is stored in the database. For admin actions, election and candidate data are loaded and changes are saved. For results, the server fetches winners from the database and displays the results page.
+
+The forward arrows show requests going from the user side to the server and database. The backward dotted arrows show the response coming back. In the voting flow, the server asks the database to load ballot data. The database returns candidate details and vote status. Then the server renders the vote page and sends it back to the web interface. After the user submits the vote, the vote is sent to the server and stored in the database.
+
+This slide explains the home page route. The portal starts at the / route. When the user opens the website, Flask runs the root function and renders the index.html page. This page contains the title, login form, and optionally the Results button. The function db.hide_results() is used to decide whether the results should be visible or hidden based on the election status.
+
+This slide explains login and authentication. When the user submits the login form, the email and password are sent to the /login/ route. Flask reads the form values using request.form.get(). Then db.auth() checks the user credentials. The entered password is hashed and compared with the stored hashed password. If the details match, the user is authenticated. After that, the system checks the user role and election status to decide whether to show the admin page, voting page, or another page.
+
+This slide explains the admin and voting flow. The admin first creates and manages the election before the voting period starts. A user can access the /vote/ route only when an election is active. When the user submits a vote, the selected candidate details are sent to the server. The system checks the voting condition and then stores the vote in the votes_for table. It also updates the candidate table by increasing the candidate’s vote count.
+
+This slide explains the results functionality. The results are displayed only after the election is over. The system first checks db.hide_results() to decide whether results should be visible. If results can be shown, db.get_results() is called to find the winners. Then Flask renders the results.html page and sends the result data to it.
+
+This slide shows the unit testing tool report. I used pytest for unit testing. The test result was 72 passed and 4 expected failures. The passed tests confirm that the tested parts of the project logic are working correctly. The expected failures are known cases that are intentionally marked, so they are documented instead of being treated as unexpected test failures.These tests are marked as expected failures because they reveal known problems. One test shows that the password change page is not protected by login.
+
+Password hash test
+This checks that the password becomes a hash and not plain text.
+
+Wrong password auth test
+This checks that login fails if the entered password is wrong.
+
+Check if voted test
+This checks whether the system can detect that a voter has already voted.
+
+Modify votes test
+This checks whether the vote is stored and the candidate vote count is updated.
+
+This slide shows the performance testing result of the Election Portal. The application was tested with 20 repeated requests. All requests returned status code 200, which means they were successful. The total execution time was about 0.90 seconds, and the average response time was around 0.045 seconds per request. This indicates that the application responds quickly under the tested conditions.
+
+This screenshot shows the Locust load testing result. The host is the locally running Flask application. The test was running with 50 virtual users. The portal was handling 24.6 requests per second with 0% failures. In the table, 3155 total GET requests were sent to the home page route. The average response time was 55.38 milliseconds, the minimum was 31 milliseconds, and the maximum was 262 milliseconds. The 95th percentile was 88 milliseconds and the 99th percentile was 120 milliseconds, which shows that most requests were completed quickly.
+
+This slide shows the security testing of the Election Portal using OWASP ZAP. ZAP is a web security scanning tool used to detect possible vulnerabilities. In this scan, a total of 11 alerts were reported. There were no high-severity issues, which is a positive result. However, 5 medium, 2 low, and 4 informational alerts were reported, so these findings still need to be reviewed and improved.
+
+This slide shows the mutation testing result of the Election Portal. Mutation testing is used to measure the strength of the test suite by introducing small artificial faults into the code. In this project, 219 mutants were generated. Out of these, 143 were killed, meaning the test suite detected those faults. However, 76 mutants survived, meaning some faults were not caught by the tests. The mutation score was about 65.3%, which shows that the test suite has reasonable strength, but there is still room for improvement.
+
+In conclusion, the Election Portal successfully implements the full election workflow and is supported by multiple forms of testing, including functional and non-functional validation.
