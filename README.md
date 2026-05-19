@@ -115,51 +115,51 @@ If needed, install them with:
 pip install torch torchvision numpy
 ```
 
-## Quick Start
+## Run on Google Colab
 
-### Step 1: Open the project folder
+### Step 1: Upload or clone the repository
+
+If the repository is on GitHub:
 
 ```bash
-cd fedas-td
+!git clone https://github.com/sneha-b-m/fedas-td.git
+%cd fedas-td
 ```
 
-### Step 2: Generate the dataset partition
+If you are using a zip file, upload and extract it in Colab.
 
-Move to the dataset folder:
+### Step 2: Install dependencies
 
 ```bash
-cd dataset
+!pip install torch torchvision numpy ujson opacus torchviz calmsize
 ```
 
-For CIFAR-10:
+### Step 3: Generate the dataset
 
 ```bash
-python generate_cifar10.py noniid - dir
-```
-
-For CIFAR-100:
-
-```bash
-python generate_cifar100.py noniid - dir
-```
-
-This creates the client-wise non-IID partition used for federated training.
-
-### Step 3: Move to the training folder
-
-```bash
-cd ..\system
+%cd /content/fedas-td/dataset
+!python generate_cifar10.py noniid - dir
 ```
 
 ### Step 4: Run the modified code
 
-Example command:
-
 ```bash
-python main.py -did 0 -data Cifar10 -nb 10 -m cnn -lbs 16 -gr 40 -ls 5 -algo FedAS -jr 0.4 -nc 20 --temporal_drift --drift_interval 5 --drift_labels_per_phase 2 --drift_aware
+%cd /content/fedas-td/system
+!python main.py -did 0 -data Cifar10 -nb 10 -m cnn -lbs 16 -gr 40 -ls 5 -algo FedAS -jr 0.4 -nc 20 --temporal_drift --drift_interval 5 --drift_labels_per_phase 2 --drift_aware
 ```
 
-### Step 5: Meaning of the main arguments
+### Step 5: If GPU is available in Colab
+
+Go to:
+
+- `Runtime`
+- `Change runtime type`
+- select `GPU`
+
+Then run the same command again.
+
+
+###  Meaning of the main arguments
 
 - `-did 0` : device id
 - `-data Cifar10` : dataset name
@@ -195,48 +195,7 @@ Join ratio 1.0:
 ```bash
 python main.py -did 0 -data Cifar10 -nb 10 -m cnn -lbs 16 -gr 40 -ls 5 -algo FedAS -jr 1.0 -nc 20 --temporal_drift --drift_interval 5 --drift_labels_per_phase 2 --drift_aware
 ```
-## Run on Google Colab
 
-### Step 1: Upload or clone the repository
-
-If the repository is on GitHub:
-
-```bash
-!git clone https://github.com/sneha-b-m/fedas-td.git
-%cd fedas-td
-```
-
-If you are using a zip file, upload and extract it in Colab.
-
-### Step 2: Install dependencies
-
-```bash
-!pip install torch torchvision numpy ujson
-```
-
-### Step 3: Generate the dataset
-
-```bash
-%cd /content/fedas-td/dataset
-!python generate_cifar10.py noniid - dir
-```
-
-### Step 4: Run the modified code
-
-```bash
-%cd /content/fedas-td/system
-!python main.py -did 0 -data Cifar10 -nb 10 -m cnn -lbs 16 -gr 40 -ls 5 -algo FedAS -jr 0.4 -nc 20 --temporal_drift --drift_interval 5 --drift_labels_per_phase 2 --drift_aware
-```
-
-### Step 5: If GPU is available in Colab
-
-Go to:
-
-- `Runtime`
-- `Change runtime type`
-- select `GPU`
-
-Then run the same command again.
 
 ## Modified Drift-Aware Flags
 
