@@ -94,26 +94,7 @@ fedas-td/
 `-- README.md
 ```
 
-## Important Modified Files
 
-- `system/flcore/clients/clientas.py`
-- `system/flcore/servers/serveras.py`
-- `system/main.py`
-
-## Requirements
-
-Install the main dependencies before running:
-
-- Python 3.9 or newer
-- PyTorch
-- torchvision
-- numpy
-
-If needed, install them with:
-
-```bash
-pip install torch torchvision numpy
-```
 
 ## Run on Google Colab
 
